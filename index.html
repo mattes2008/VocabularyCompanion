@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<script src="js/scripts.js"></script>
+	<script src="js/open.js"></script>
+	<script src="js/openUI.js"></script>
+	<script src="js/letterKey.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body onload="bodyOnLoad()">
+
+<div id="login">
+
+	<div id="createAccount" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+
+		<h1>Sign up...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="loginCreateAccountUsername" placeholder="Username">
+
+		<br/>
+		<br/>
+
+		<input id="loginCreateAccountPassword" type="password" placeholder="Password">
+
+		<br/>
+		<br/>
+
+		<input id="loginCreateAccountRepeatPassword" type="password" placeholder="Repeat password...">
+
+		<p style="color: red;">ATTENTION: Your password isn't saved perfectly. <br/>Don't use the same password as for your email-account!</p>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="signUp(document.getElementById('loginCreateAccountUsername').value, document.getElementById('loginCreateAccountPassword').value, document.getElementById('loginCreateAccountRepeatPassword').value)">Create</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="cancelSignUp()" style="background-color: red;">Cancel</button>
+
+	</div>
+
+	<h1>Sign in...</h1>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<input id="loginUsername" placeholder="Username">
+
+	<br/>
+	<br/>
+
+	<input id="loginPassword" type="password" placeholder="Password">
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="signIn(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value)">Sign in...</button>
+
+	<br/>
+	<br/>
+
+	<button style="background-color: green;" onclick="document.getElementById('createAccount').classList.remove('hidden'); document.getElementById('loginCreateAccountUsername').value = ''; document.getElementById('loginCreateAccountPassword').value = ''; document.getElementById('loginCreateAccountRepeatPassword').value = '';">Sign up...</button>
+
+</div>
+
+<div class="hiddden" id="main">
+
+	<div id="overviewTable"></div>
+
+	<div id="mainCreateUnit" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+
+		<h1>Create unit...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="mainCreateUnitTitle" placeholder="Name">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="mainCreateUnitLanguage1" placeholder="Source Language">
+
+		<br/>
+		<br/>
+
+		<input id="mainCreateUnitLanguage2" placeholder="Target Language">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button style="background-color: green;" onclick="createUnit(document.getElementById('mainCreateUnitTitle').value, document.getElementById('mainCreateUnitLanguage1').value, document.getElementById('mainCreateUnitLanguage2').value)">Create</button>
+
+		<br/>
+		<br/>
+
+		<button style="background-color: red;" onclick="cancelCreateUnit()">Cancel</button>
+
+	</div>
+
+</div>
+
+<div id="unitDisplay" class="hidden">
+
+	<input id="unitDisplayTitle" placeholder="Title" onchange="data.userData[data.activeUser].vocabUnits[data.activeUnit].title = this.value; localStorage.setItem('vocabularyCoach_userData', JSON.stringify(data.userData));">
+
+	<br/>
+	<br/>
+	<br/>
+
+	<input id="unitDisplaySource" placeholder="Source Language" onchange="data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage = this.value; localStorage.setItem('vocabularyCoach_userData', JSON.stringify(data.userData));">
+
+	<br/>
+	<br/>
+
+	<input id="unitDisplayTarget" placeholder="Target Language" onchange="data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage = this.value; localStorage.setItem('vocabularyCoach_userData', JSON.stringify(data.userData));">
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<div id="unitDisplayVocabTable"></div>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="document.getElementById('readUnitCreateVocabSource').value = ''; document.getElementById('readUnitCreateVocabTarget').value = ''; document.getElementById('readUnitCreateVocab').classList.remove('hidden');">Create Vocab</button>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<hr/>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="document.getElementById('startPractisingOption1').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage; document.getElementById('startPractisingOption2').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage; document.getElementById('startPractising').classList.remove('hidden');" style="background-color: green;">Practise Unit</button>
+
+	<br/>
+	<br/>
+
+	<button onclick="deleteUnit()" style="background-color: red;">Delete Unit</button>
+
+	<br/>
+	<br/>
+
+	<button onclick="cancelReadUnit()" style="background-color: red;">Cancel</button>
+
+	<div id="readUnitCreateVocab" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+
+		<h1>Create vocab...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="readUnitCreateVocabSource" placeholder="Source Language">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="readUnitCreateVocabTarget" placeholder="Target Language">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button style="background-color: green;" onclick="createVocab()">Create</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="cancelCreateVocab()" style="background-color: red;">Cancel</button>
+
+	</div>
+	<div id="readUnitEditVocab" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+
+		<h1>Edit vocab...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="readUnitEditVocabSource" placeholder="Source Language">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="readUnitEditVocabTarget" placeholder="Target Language">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="editVocab()">Update</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="editVocabDelete()" style="background-color: red;">Delete</button>
+
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="cancelEditVocab()" style="background-color: red;">Cancel</button>
+
+	</div>
+	<div id="startPractising" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+
+		<h1>Edit vocab...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input onchange="document.getElementById('startPractisingTarToSrc').checked = false; this.checked = true;" id="startPractisingSrcToTar" type="checkbox">
+
+		<h2 id="startPractisingOption1"></h2>
+
+		<br/>
+		<br/>
+		<br/>
+
+		<input onchange="document.getElementById('startPractisingSrcToTar').checked = false; this.checked = true;" id="startPractisingTarToSrc" type="checkbox">
+
+		<h2 id="startPractisingOption2"></h2>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button>Start</button>
+
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="cancelPractising()" style="background-color: red;">Cancel</button>
+
+	</div>
+
+</div>
+
+<div id="practise" class="hidden">
+
+	<h2 id="practiseSourceVocab"></h2>
+
+	<input placeholder="Answer" id="practiseInput">
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button>Send</button>
+
+</div>
+
+</body>
+
+</html>
