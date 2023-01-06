@@ -88,3 +88,65 @@ td {
 	font-weight: bold;
 
 }
+
+
+.display {
+
+	width: 1200px;
+	height: 100px;
+	background-color: #333333;
+	border: thin solid #222222;
+	margin-left: 232.5px;
+	font-size: 40px;
+	padding-top: 50px;
+
+}
+
+
+.greenDisplay {
+
+	background-color: green;
+	border: thin solid white;
+	color: white;
+
+}
+
+
+.redDisplay {
+
+	background-color: red;
+	border: thin solid white;
+	color: white;
+
+}
+
+
+.statisticDisplay {
+
+	width: 1200px;
+	height: 540px;
+	background-color: #333333;
+	border: thin solid #222222;
+	margin-left: 232.5px;
+	padding-top: 50px;
+	padding-left: 80px;
+	text-align: left;
+
+}
+
+
+header {
+
+	background-color: blue;
+	border: 5px solid blue;
+	text-align: left;
+	padding-left: 2em;
+
+}
+
+
+a {
+
+	color: blue;
+
+}

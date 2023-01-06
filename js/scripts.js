@@ -1,6 +1,14 @@
 let data = {
 
 	activeUser: undefined,
+	practising: {
+
+		activeVoc: undefined,
+		remaining: [],
+		direction: "",
+		result: [],
+
+	}
 
 }
 
@@ -49,6 +57,14 @@ function signUp (username, password, repeated) {
 				userKey: letterKey.createKey(),
 				password: letterKey.encrypt(password, localStorage.getItem("vocabularyCoach_mainKey")),
 				vocabUnits: [],
+				statistics: {
+
+					totalStars: 0,
+					percent: 0,
+					tries: 0,
+					perfectTries: 0,
+
+				},
 
 			}
 
@@ -101,6 +117,13 @@ function createUnit (title, firstLanguage, secondLanguage) {
 			sourceLanguage: firstLanguage,
 			targetLanguage: secondLanguage,
 			vocabList: [],
+			statistics: {
+
+				percent: 0,
+				tries: 0,
+				perfectTries: 0,
+
+			}
 
 		})
 		alert("Your unit has been created.")
@@ -191,6 +214,10 @@ function reloadVocabTable () {
 
 	}
 
+	document.getElementById("unitStatisticPercentDisplay").innerHTML = "&oslash;&nbsp;Success Ratio:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent + "&percnt;";
+	document.getElementById("unitStatisticTriesDisplay").innerHTML = "&star;&nbsp;Tries:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.tries
+	document.getElementById("unitStatisticPerfectTriesDisplay").innerHTML = "&starf;&nbsp;Perfect Tries:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.perfectTries
+
 }
 
 
@@ -272,5 +299,185 @@ function editVocabDelete () {
 function cancelPractising () {
 
 	document.getElementById("startPractising").classList.add("hidden");
+
+}
+
+
+function startPractising () {
+
+	data.practising.activeVoc = undefined
+	data.practising.activeVocab = undefined
+	data.practising.direction = ""
+	data.practising.remaining = []
+	data.practising.result = []
+	data.practising.roundedPercent = undefined
+
+	if (document.getElementById("startPractisingSrcToTar").checked) {
+		data.practising.direction = "srcToTar";
+	} else if (document.getElementById("startPractisingTarToSrc").checked) {
+		data.practising.direction = "tarToSrc";
+	}
+
+	for (let i=0; i<data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList.length; i++) {
+
+		data.practising.remaining.push(i);
+
+		if (i===data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList.length-1) {
+			document.getElementById("unitDisplay").classList.add("hidden");
+			document.getElementById("practise").classList.remove("hidden");
+			cancelPractising();
+			nextTask();
+		}
+
+	}
+
+}
+
+
+
+
+function nextTask () {
+
+	data.practising.activeVocab = Math.round(Math.random() * (data.practising.remaining.length-1));
+
+	if (data.practising.direction==="srcToTar") {
+		document.getElementById("practiseSourceVocab").innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList[data.practising.remaining[data.practising.activeVocab]].source;
+	} else if (data.practising.direction==="tarToSrc") {
+		document.getElementById("practiseSourceVocab").innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList[data.practising.remaining[data.practising.activeVocab]].target;
+	}
+
+	document.getElementById("practiseInput").value = "";
+	document.getElementById("practiseInput").select();
+
+	document.getElementById("practiseOutput").innerHTML = "Type in your answer!"
+	document.getElementById("practiseOutput").classList.remove("greenDisplay");
+	document.getElementById("practiseOutput").classList.remove("redDisplay");
+	document.getElementById("practisingConfirm").style = "background-color: green;";
+	document.getElementById("practisingConfirm").onclick = function() {practisingConfirm();};
+
+}
+
+
+function practisingConfirm () {
+
+	if (data.practising.direction==="srcToTar") {
+		if (document.getElementById("practiseInput").value===data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList[data.practising.remaining[data.practising.activeVocab]].target) {
+			document.getElementById("practiseOutput").innerHTML = "&check;&nbsp;&nbsp; - &nbsp;&nbsp;Great! You're right."
+			document.getElementById("practiseOutput").classList.add("greenDisplay");
+			data.practising.remaining.splice(data.practising.activeVocab, 1);
+			data.practising.result.push(true);
+			document.getElementById("practisingConfirm").style = "background-color: #777777;";
+			document.getElementById("practisingConfirm").onclick = "";
+			if (data.practising.remaining.length===0) {
+				prepareResult();
+			}
+		} else {
+			document.getElementById("practiseOutput").innerHTML = "&times;&nbsp;&nbsp; - &nbsp;&nbsp;Sorry! There's a mistake. The right word was <b>" + data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList[data.practising.remaining[data.practising.activeVocab]].target + "</b>."
+			document.getElementById("practiseOutput").classList.add("redDisplay");
+			data.practising.result.push(false);
+			document.getElementById("practisingConfirm").style = "background-color: #777777;";
+			document.getElementById("practisingConfirm").onclick = "";
+		}
+	} else if (data.practising.direction==="tarToSrc") {
+		if (document.getElementById("practiseInput").value===data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList[data.practising.remaining[data.practising.activeVocab]].source) {
+			document.getElementById("practiseOutput").innerHTML = "&check;&nbsp;&nbsp; - &nbsp;&nbsp;Great! You're right."
+			document.getElementById("practiseOutput").classList.add("greenDisplay");
+			data.practising.remaining.splice(data.practising.activeVocab, 1);
+			data.practising.result.push(true);
+			document.getElementById("practisingConfirm").style = "background-color: #777777;";
+			document.getElementById("practisingConfirm").onclick = "";
+			if (data.practising.remaining.length===0) {
+				prepareResult();
+			}
+		} else {
+			document.getElementById("practiseOutput").innerHTML = "&times;&nbsp;&nbsp; - &nbsp;&nbsp;Sorry! There's a mistake. The right word was <b>" + data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList[data.practising.remaining[data.practising.activeVocab]].source + "</b>."
+			document.getElementById("practiseOutput").classList.add("redDisplay");
+			data.practising.result.push(false);
+			document.getElementById("practisingConfirm").style = "background-color: #777777;";
+			document.getElementById("practisingConfirm").onclick = "";
+		}
+	}
+
+
+
+}
+
+
+function prepareResult () {
+
+	document.getElementById("practisingResult").classList.remove("hidden");
+	let percent
+	let roundedPercent
+	let tr = 0
+
+	for (let i=0; i<data.practising.result.length; i++) {
+
+		if (data.practising.result[i]) {
+			tr++
+		}
+
+	}
+
+	percent = tr/data.practising.result.length;
+	percent *= 10000;
+	percent = Math.round(percent);
+	percent = percent/100;
+	document.getElementById("percentDisplay").innerHTML = percent + "&percnt;";
+	roundedPercent = Math.round(percent);
+	data.practising.roundedPercent = roundedPercent
+
+	document.getElementById("percentRangeDisplay").value = roundedPercent;
+
+	if (roundedPercent<20) {
+		document.getElementById("starDisplay").innerHTML = "&starf;&star;&star;&star;&star;"
+		document.getElementById("6thStarDisplay").innerHTML = ""
+		data.userData[data.activeUser].statistics.totalStars += 1
+	} else if (roundedPercent<40) {
+		document.getElementById("starDisplay").innerHTML = "&starf;&starf;&star;&star;&star;"
+		document.getElementById("6thStarDisplay").innerHTML = ""
+		data.userData[data.activeUser].statistics.totalStars += 2
+	} else if (roundedPercent<60) {
+		document.getElementById("starDisplay").innerHTML = "&starf;&starf;&starf;&star;&star;"
+		document.getElementById("6thStarDisplay").innerHTML = ""
+		data.userData[data.activeUser].statistics.totalStars += 3
+	} else if (roundedPercent<80) {
+		document.getElementById("starDisplay").innerHTML = "&starf;&starf;&starf;&starf;&star;"
+		document.getElementById("6thStarDisplay").innerHTML = ""
+		data.userData[data.activeUser].statistics.totalStars += 4
+	} else if (roundedPercent<100) {
+		document.getElementById("starDisplay").innerHTML = "&starf;&starf;&starf;&starf;&starf;"
+		document.getElementById("6thStarDisplay").innerHTML = ""
+		data.userData[data.activeUser].statistics.totalStars += 5
+	} else if (roundedPercent>=100) {
+		document.getElementById("starDisplay").innerHTML = "&starf;&starf;&starf;&starf;&starf;"
+		document.getElementById("6thStarDisplay").innerHTML = "&starf;"
+		data.userData[data.activeUser].statistics.totalStars += 6
+		data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.perfectTries++
+		data.userData[data.activeUser].statistics.perfectTries++
+	}
+
+	data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.tries++;
+	data.userData[data.activeUser].statistics.tries++;
+
+	let temp = data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent + percent
+	data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent = temp/data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.tries;
+
+	let temp2 = data.userData[data.activeUser].statistics.percent + percent
+	data.userData[data.activeUser].statistics.percent = temp2 / data.userData[data.activeUser].statistics.tries
+
+	data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent
+
+
+	localStorage.setItem("vocabularyCoach_userData", JSON.stringify(data.userData));
+
+}
+
+
+function stopPractising () {
+
+	document.getElementById("practisingResult").classList.add("hidden");
+	document.getElementById("practise").classList.add("hidden");
+	document.getElementById("unitDisplay").classList.remove("hidden");
+	reloadVocabTable();
 
 }

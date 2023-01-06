@@ -13,14 +13,27 @@
 
 <body onload="bodyOnLoad()">
 
+<header>
+	<h1>Vocabulary Companion</h1>
+</header>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 <div id="login">
 
 	<div id="createAccount" class="popupWindow hidden">
 
 		<br/>
 		<br/>
+		<br/>
+		<br/>
 
-		<h1>Sign up...</h1>
+		<h1 style="text-decoration: underline;">Register...</h1>
 
 		<br/>
 		<br/>
@@ -39,14 +52,14 @@
 
 		<input id="loginCreateAccountRepeatPassword" type="password" placeholder="Repeat password...">
 
-		<p style="color: red;">ATTENTION: Your password isn't saved perfectly. <br/>Don't use the same password as for your email-account!</p>
+		<p style="color: red;">ATTENTION: Your password isn't encrypted perfectly.<br/>Please remember to use a safe and different<br/>password for each and every service, that you use.</p>
 
 		<br/>
 		<br/>
 		<br/>
 		<br/>
 
-		<button onclick="signUp(document.getElementById('loginCreateAccountUsername').value, document.getElementById('loginCreateAccountPassword').value, document.getElementById('loginCreateAccountRepeatPassword').value)">Create</button>
+		<button style="background-color: green;" onclick="signUp(document.getElementById('loginCreateAccountUsername').value, document.getElementById('loginCreateAccountPassword').value, document.getElementById('loginCreateAccountRepeatPassword').value)">Create</button>
 
 		<br/>
 		<br/>
@@ -55,10 +68,8 @@
 
 	</div>
 
-	<h1>Sign in...</h1>
+	<h1 style="text-decoration: underline;">Log in...</h1>
 
-	<br/>
-	<br/>
 	<br/>
 	<br/>
 
@@ -74,12 +85,12 @@
 	<br/>
 	<br/>
 
-	<button onclick="signIn(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value)">Sign in...</button>
+	<button onclick="signIn(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value)">Log in...</button>
 
 	<br/>
 	<br/>
 
-	<button style="background-color: green;" onclick="document.getElementById('createAccount').classList.remove('hidden'); document.getElementById('loginCreateAccountUsername').value = ''; document.getElementById('loginCreateAccountPassword').value = ''; document.getElementById('loginCreateAccountRepeatPassword').value = '';">Sign up...</button>
+	<button style="background-color: green;" onclick="document.getElementById('createAccount').classList.remove('hidden'); document.getElementById('loginCreateAccountUsername').value = ''; document.getElementById('loginCreateAccountPassword').value = ''; document.getElementById('loginCreateAccountRepeatPassword').value = '';">Register...</button>
 
 </div>
 
@@ -91,8 +102,10 @@
 
 		<br/>
 		<br/>
+		<br/>
+		<br/>
 
-		<h1>Create unit...</h1>
+		<h1 style="text-decoration: underline;">Create unit...</h1>
 
 		<br/>
 		<br/>
@@ -149,28 +162,22 @@
 	<br/>
 	<br/>
 
+	<button style="background-color: green;" onclick="document.getElementById('readUnitCreateVocabSource').value = ''; document.getElementById('readUnitCreateVocabTarget').value = ''; document.getElementById('readUnitCreateVocab').classList.remove('hidden');">Create Vocab</button>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
 	<div id="unitDisplayVocabTable"></div>
 
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-
-	<button onclick="document.getElementById('readUnitCreateVocabSource').value = ''; document.getElementById('readUnitCreateVocabTarget').value = ''; document.getElementById('readUnitCreateVocab').classList.remove('hidden');">Create Vocab</button>
 
 	<br/>
 	<br/>
 	<br/>
 	<br/>
 
-	<hr/>
-
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-
-	<button onclick="document.getElementById('startPractisingOption1').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage; document.getElementById('startPractisingOption2').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage; document.getElementById('startPractising').classList.remove('hidden');" style="background-color: green;">Practise Unit</button>
+	<button onclick="document.getElementById('startPractisingOption1').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage; document.getElementById('startPractisingOption2').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage; document.getElementById('startPractising').classList.remove('hidden');">Practise Unit</button>
 
 	<br/>
 	<br/>
@@ -182,12 +189,49 @@
 
 	<button onclick="cancelReadUnit()" style="background-color: red;">Cancel</button>
 
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<div class="statisticDisplay">
+
+		<h1 style="text-decoration: underline;">Unit statistics:</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h2 style="margin-left: 60px; color: green;" id="unitStatisticPercentDisplay"></h2>
+
+		<br/>
+		<br/>
+		<br/>
+
+		<h2 style="margin-left: 60px; color: red;" id="unitStatisticTriesDisplay"></h2>
+
+		<br/>
+		<br/>
+		<br/>
+
+		<h2 style="margin-left: 60px; color: yellow;" id="unitStatisticPerfectTriesDisplay"></h2>
+
+	</div>
+
 	<div id="readUnitCreateVocab" class="popupWindow hidden">
 
 		<br/>
 		<br/>
+		<br/>
+		<br/>
+		<br/>
 
-		<h1>Create vocab...</h1>
+		<h1 style="text-decoration: underline;">Create vocabulary...</h1>
 
 		<br/>
 		<br/>
@@ -220,8 +264,10 @@
 
 		<br/>
 		<br/>
+		<br/>
+		<br/>
 
-		<h1>Edit vocab...</h1>
+		<h1 style="text-decoration: underline;">Edit vocabulary...</h1>
 
 		<br/>
 		<br/>
@@ -260,8 +306,10 @@
 
 		<br/>
 		<br/>
+		<br/>
+		<br/>
 
-		<h1>Edit vocab...</h1>
+		<h1 style="text-decoration: underline;">Start practising...</h1>
 
 		<br/>
 		<br/>
@@ -285,7 +333,7 @@
 		<br/>
 		<br/>
 
-		<button>Start</button>
+		<button onclick="startPractising()" style="background-color: green;">Start</button>
 
 		<br/>
 		<br/>
@@ -308,9 +356,72 @@
 	<br/>
 	<br/>
 
-	<button>Send</button>
+	<div class="display" id="practiseOutput">Type in your answer!</div>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button id="practisingConfirm" style="background-color: green;" onclick="practisingConfirm()">Confirm</button>
+
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="nextTask()">Next Task</button>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="stopPractising()" style="background-color: red;">Cancel</button>
+
+	<div id="practisingResult" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+
+		<input onchange="this.value = data.practising.roundedPercent" style="background-color: red;" id="percentRangeDisplay" min="0" max="100" type="range" readonly>
+
+		<br/>
+		<br/>
+
+		<h2 style="font-size: 96px;" id="percentDisplay"></h2>
+
+		<br/>
+		<br/>
+
+		<h1 style="color: yellow;" id="starDisplay"></h1>
+		<h1 style="color: red;" id="6thStarDisplay"></h1>
+
+		<br/>
+
+		<button onclick="stopPractising()" style="background-color: red;">Cancel</button>
+
+	</div>
 
 </div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<hr/>
+<br/>
+<p style="text-decoration: underline;">Made by:</p>
+<a href="https://www.github.com/mattes2008">mattes2008</a>
+<br/>
+<br/>
+<hr/>
+<br/>
+<br/>
+<br/>
 
 </body>
 
