@@ -481,3 +481,37 @@ function stopPractising () {
 	reloadVocabTable();
 
 }
+
+
+
+
+function exportUnit () {
+
+	document.getElementById("readUnitExport").classList.remove("hidden");
+	document.getElementById("exportText").value = JSON.stringify(data.userData[data.activeUser].vocabUnits[data.activeUnit]);
+
+}
+
+
+function cancelExportUnit () {
+
+	document.getElementById("readUnitExport").classList.add("hidden");
+
+}
+
+
+function importUnit () {
+
+	let temp = JSON.parse(document.getElementById("importText").value)
+	createUnit(temp.title, temp.sourceLanguage, temp.targetLanguage)
+
+	for (let i=0; i<data.userData[data.activeUser].vocabUnits.length; i++) {
+
+		if (data.userData[data.activeUser].vocabUnits[i].title===temp.title) {
+			data.userData[data.activeUser].vocabUnits[i].vocabList = temp.vocabList;
+			data.userData[data.activeUser].vocabUnits[i].statistics = temp.statistics;
+		}
+
+	}
+
+}

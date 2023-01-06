@@ -17,7 +17,7 @@ body {
 	top: 100px;
 	left: 132.5px;
 	background-color: #222222;
-	opacity: 90%;
+	opacity: 95%;
 
 }
 
@@ -148,5 +148,16 @@ header {
 a {
 
 	color: blue;
+
+}
+
+
+textarea {
+
+	background-color: #444444;
+	color: white;
+	font-family: "Arial";
+	width: 1199px;
+	height: 400px;
 
 }

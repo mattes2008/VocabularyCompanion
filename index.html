@@ -68,9 +68,8 @@
 
 	</div>
 
-	<h1 style="text-decoration: underline;">Log in...</h1>
+	<img src="storage/vocabularyCompanionRendering.png">
 
-	<br/>
 	<br/>
 
 	<input id="loginUsername" placeholder="Username">
@@ -97,6 +96,13 @@
 <div class="hiddden" id="main">
 
 	<div id="overviewTable"></div>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="document.getElementById('readUnitImport').classList.remove('hidden'); document.getElementById('importText').value = ''" style="background-color: green;">Import Unit</button>
 
 	<div id="mainCreateUnit" class="popupWindow hidden">
 
@@ -139,6 +145,30 @@
 		<button style="background-color: red;" onclick="cancelCreateUnit()">Cancel</button>
 
 	</div>
+	<div id="readUnitImport" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Import unit...</h1>
+
+		<br/>
+		<br/>
+
+		<textarea id="importText"></textarea>
+
+		<br/>
+		<br/>
+
+		<button onclick="importUnit()" style="background-color: green;">Import</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="document.getElementById('readUnitImport').classList.add('hidden');" style="background-color: red;">Cancel</button>
+
+	</div>
+
 
 </div>
 
@@ -178,6 +208,11 @@
 	<br/>
 
 	<button onclick="document.getElementById('startPractisingOption1').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage; document.getElementById('startPractisingOption2').innerHTML = data.userData[data.activeUser].vocabUnits[data.activeUnit].targetLanguage + ' ' + '&rarr;' + ' ' + data.userData[data.activeUser].vocabUnits[data.activeUnit].sourceLanguage; document.getElementById('startPractising').classList.remove('hidden');">Practise Unit</button>
+
+	<br/>
+	<br/>
+
+	<button onclick="exportUnit()">Export</button>
 
 	<br/>
 	<br/>
@@ -258,6 +293,27 @@
 		<br/>
 
 		<button onclick="cancelCreateVocab()" style="background-color: red;">Cancel</button>
+
+	</div>
+	<div id="readUnitExport" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Create vocabulary...</h1>
+
+		<br/>
+		<br/>
+
+		<textarea id="exportText"></textarea>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="cancelExportUnit()" style="background-color: red;">Cancel</button>
 
 	</div>
 	<div id="readUnitEditVocab" class="popupWindow hidden">
