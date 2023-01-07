@@ -29,6 +29,39 @@
 
 <div id="login">
 
+	<div id="acceptLocalStorage" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Local Storage</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h2>This webpage uses local storage to save your data.<br/>If you disagreed, the program wouldn't be able to continue, because<br/>your vocabulary, statistics and settings wouldn't be saved.<br/>Do you agree?</h2>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="acceptLocalStorage()" style="background-color: green;">Agree</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="window.close()" style="background-color: red;">Disagree</button>
+
+	</div>
 	<div id="createAccount" class="popupWindow hidden">
 
 		<br/>
@@ -108,6 +141,7 @@
 
 	<input id="loginPassword" type="password" placeholder="Password">
 
+
 	<br/>
 	<br/>
 	<br/>
@@ -124,6 +158,12 @@
 	<br/>
 
 	<button onclick="document.getElementById('userImport').classList.remove('hidden'); document.getElementById('userImportText').value = ''; document.getElementById('userImportName').value = ''" style="background-color: green;">Import User...</button>
+
+	<br/>
+	<br/>
+
+	<input style="width: auto; height: auto; margin-left: 325px;" type="checkbox" id="remainSignedIn">
+	&nbsp;&nbsp;&nbsp;Remain signed in
 
 </div>
 
@@ -623,7 +663,7 @@
 		<br/>
 		<br/>
 
-		<button style="background-color: red;" onclick="document.getElementById('accountSettingsChangePassword').classList.add('hidden')">Save</button>
+		<button style="background-color: red;" onclick="document.getElementById('accountSettingsChangePassword').classList.add('hidden')">Cancel</button>
 
 	</div>
 	<div id="deleteUser" class="popupWindow hidden">

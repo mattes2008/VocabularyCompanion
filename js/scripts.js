@@ -17,6 +17,18 @@ let data = {
 
 function bodyOnLoad () {
 
+	if (JSON.parse(localStorage.getItem("vocabularyCoach_userData"))===null) {
+		document.getElementById("acceptLocalStorage").classList.remove("hidden");
+	} else {
+		acceptLocalStorage();
+	}
+
+}
+
+
+function acceptLocalStorage () {
+
+	document.getElementById("acceptLocalStorage").classList.add("hidden");
 	data.userData = JSON.parse(localStorage.getItem("vocabularyCoach_userData"));
 
 	if (data.userData===null) {
@@ -28,6 +40,10 @@ function bodyOnLoad () {
 		localStorage.setItem("vocabularyCoach_mainKey", letterKey.createKey());
 	}
 	document.getElementById('startPractisingSrcToTar').checked = true;
+
+	if (localStorage.getItem("vocabularyCoach_remainSignedIn")!==null) {
+		signIn(JSON.parse(localStorage.getItem("vocabularyCoach_remainSignedIn")), letterKey.decrypt(data.userData[JSON.parse(localStorage.getItem("vocabularyCoach_remainSignedIn"))].password, localStorage.getItem("vocabularyCoach_mainKey")));
+	}
 
 }
 
@@ -42,6 +58,11 @@ function signIn (username, password) {
 			document.getElementById("login").classList.add("hidden");
 			document.getElementById("main").classList.remove("hidden");
 			reloadOverviewTable();
+
+			if (document.getElementById("remainSignedIn").checked===true) {
+				localStorage.setItem("vocabularyCoach_remainSignedIn", JSON.stringify(username));
+			}
+
 		}
 	}
 
@@ -628,6 +649,8 @@ function logOut () {
 	document.getElementById("accountSettings").classList.add("hidden");
 	document.getElementById("loginUsername").value = "";
 	document.getElementById("loginPassword").value = "";
+	localStorage.setItem("vocabularyCoach_remainSignedIn", null);
+	document.getElementById("remainSignedIn").checked = false;
 
 }
 
