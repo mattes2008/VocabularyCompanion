@@ -21,9 +21,10 @@
 
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
+<div style="text-align: right;">
+	<button onclick="openAccountSettings()" style="background-image: url('storage/accountIcon75x75.png')" id="accountIconMain"></button>
+</div>
+
 <br/>
 
 <div id="login">
@@ -69,6 +70,32 @@
 		<button onclick="cancelSignUp()" style="background-color: red;">Cancel</button>
 
 	</div>
+	<div id="userImport" class="popupWindow hidden">
+
+		<br/>
+
+		<h1 style="text-decoration: underline;">Import unit...</h1>
+
+		<br/>
+
+		<input id="userImportName" placeholder="Username">
+
+		<br/>
+		<br/>
+
+		<textarea id="userImportText"></textarea>
+
+		<br/>
+		<br/>
+
+		<button onclick="importUser()" style="background-color: green;">Import</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="document.getElementById('userImport').classList.add('hidden');" style="background-color: red;">Cancel</button>
+
+	</div>
 
 	<img src="storage/vocabularyCompanionRendering.png">
 
@@ -93,9 +120,17 @@
 
 	<button style="background-color: green;" onclick="document.getElementById('createAccount').classList.remove('hidden'); document.getElementById('loginCreateAccountUsername').value = ''; document.getElementById('loginCreateAccountPassword').value = ''; document.getElementById('loginCreateAccountRepeatPassword').value = '';">Register...</button>
 
+	<br/>
+	<br/>
+
+	<button onclick="document.getElementById('userImport').classList.remove('hidden'); document.getElementById('userImportText').value = ''; document.getElementById('userImportName').value = ''" style="background-color: green;">Import User...</button>
+
 </div>
 
 <div class="hidden" id="main">
+
+	<br/>
+	<br/>
 
 	<div id="overviewTable"></div>
 
@@ -459,6 +494,180 @@
 		<br/>
 
 		<button onclick="stopPractising()">Save</button>
+
+	</div>
+
+</div>
+
+<div class="hidden" id="accountSettings">
+
+	<input onchange="accountSettingsRenameUser()" id="accountSettingsRenameUser" placeholder="Username">
+
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="openChangePassword()">Change Password</button>
+
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="logOut()">Log out...</button>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button style="background-color: red;" onclick="document.getElementById('main').classList.remove('hidden'); document.getElementById('accountSettings').classList.add('hidden');">Back</button>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<div class="statisticDisplay">
+
+		<h1 style="text-decoration: underline;">User statistics:</h1>
+
+		<br/>
+		<br/>
+
+		<h2 style="margin-left: 60px; color: yellow;" id="userStatisticTotalStarsDisplay"></h2>
+
+		<br/>
+		<br/>
+
+		<h2 style="margin-left: 60px; color: blue;" id="userStatisticPercentDisplay"></h2>
+
+		<br/>
+		<br/>
+
+		<h2 style="margin-left: 60px; color: red;" id="userStatisticTriesDisplay"></h2>
+
+		<br/>
+		<br/>
+
+		<h2 style="margin-left: 60px; color: green;" id="userStatisticPerfectTriesDisplay"></h2>
+
+	</div>
+
+	<br/>
+	<br/>
+	<br/>
+
+	<button onclick="exportUser()">Export User</button>
+
+	<br/>
+	<br/>
+
+	<button style="background-color: red;" onclick="document.getElementById('deleteUser').classList.remove('hidden'); document.getElementById('deleteUserPasswordInput').value = ''; document.getElementById('deleteUserRepeatPasswordInput').value = '';">Delete User</button>
+
+	<div id="userExport" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Create vocabulary...</h1>
+
+		<br/>
+		<br/>
+
+		<textarea id="exportUserText"></textarea>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="document.getElementById('userExport').classList.add('hidden');" style="background-color: red;">Cancel</button>
+
+	</div>
+	<div id="accountSettingsChangePassword" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Change password...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="changePasswordOld" type="password" placeholder="Name">
+
+		<br/>
+		<br/>
+
+		<input id="changePasswordRepeatOld" type="password" placeholder="Source Language">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="changePasswordNew" type="password" placeholder="Target Language">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button onclick="accountSettingsChangePassword()">Change</button>
+
+		<br/>
+		<br/>
+
+		<button style="background-color: red;" onclick="document.getElementById('accountSettingsChangePassword').classList.add('hidden')">Save</button>
+
+	</div>
+	<div id="deleteUser" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Delete user...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h2 style="color: red;">Are you sure, that you want to delete this user?</h2>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input placeholder="Password" id="deleteUserPasswordInput" type="password">
+
+		<br/>
+		<br/>
+
+		<input placeholder="Repeat Password..." id="deleteUserRepeatPasswordInput" type="password">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button style="background-color: red;" onclick="deleteUser()">Delete</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="document.getElementById('deleteUser').classList.add('hidden');">Cancel</button>
 
 	</div>
 

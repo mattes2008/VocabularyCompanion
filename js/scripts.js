@@ -515,3 +515,134 @@ function importUnit () {
 	}
 
 }
+
+
+
+
+function openAccountSettings () {
+
+	if (data.activeUser!==undefined) {
+
+		document.getElementById("login").classList.add("hidden");
+		document.getElementById("main").classList.add("hidden");
+		document.getElementById("unitDisplay").classList.add("hidden");
+		document.getElementById("practise").classList.add("hidden");
+		document.getElementById("accountSettings").classList.remove("hidden");
+
+		let temp = data.userData[data.activeUser].statistics.percent * 100;
+		temp = Math.round(temp);
+		temp = temp/100
+
+		document.getElementById("userStatisticTotalStarsDisplay").innerHTML = "&starf;&nbsp;Total Stars:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].statistics.totalStars;
+		document.getElementById("userStatisticPercentDisplay").innerHTML = "&oslash;&nbsp;Success Ratio:&nbsp;&nbsp;&nbsp;" + temp + "&percnt;";
+		document.getElementById("userStatisticTriesDisplay").innerHTML = "&star;&nbsp;Tries:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].statistics.tries;
+		document.getElementById("userStatisticPerfectTriesDisplay").innerHTML = "&starf;&nbsp;Perfect Tries:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].statistics.perfectTries;
+		document.getElementById("accountSettingsRenameUser").value = data.activeUser;
+
+	}
+
+}
+
+
+function accountSettingsRenameUser () {
+
+	let temp = document.getElementById("accountSettingsRenameUser").value;
+
+	if (data.userData[temp]==undefined) {
+
+		data.userData[temp] = data.userData[data.activeUser];
+		data.userData[data.activeUser] = undefined
+		data.activeUser = temp;
+		openAccountSettings();
+		localStorage.setItem("vocabularyCoach_userData", JSON.stringify(data.userData));
+		alert("Your account has been renamed.");
+
+	} else {
+		alert("The account " + temp + " already exists.");
+		document.getElementById("accountSettingsRenameUser").value = data.activeUser;
+	}
+
+}
+
+
+function exportUser () {
+
+	document.getElementById("userExport").classList.remove("hidden");
+	document.getElementById("exportUserText").value = JSON.stringify(data.userData[data.activeUser]);
+
+}
+
+
+function accountSettingsChangePassword () {
+
+	let temp = letterKey.decrypt(data.userData[data.activeUser].password, localStorage.getItem("vocabularyCoach_mainKey"))
+
+	if (document.getElementById("changePasswordRepeatOld").value===document.getElementById("changePasswordOld").value && document.getElementById("changePasswordOld").value===temp) {
+		data.userData[data.activeUser].password = letterKey.encrypt(document.getElementById("changePasswordNew").value, localStorage.getItem("vocabularyCoach_mainKey"))
+		alert("Your password have been changed.");
+		document.getElementById("accountSettingsChangePassword").classList.add("hidden");
+		localStorage.setItem("vocabularyCoach_userData", JSON.stringify(data.userData));
+	} else {
+		alert("Something went wrong.");
+	}
+
+}
+
+
+function openChangePassword () {
+
+	document.getElementById("changePasswordNew").value = "";
+	document.getElementById("changePasswordOld").value = "";
+	document.getElementById("changePasswordRepeatOld").value = "";
+	document.getElementById("accountSettingsChangePassword").classList.remove("hidden");
+
+}
+
+
+function deleteUser () {
+
+	if (document.getElementById("deleteUserPasswordInput").value===document.getElementById("deleteUserRepeatPasswordInput").value && document.getElementById("deleteUserPasswordInput").value===letterKey.decrypt(data.userData[data.activeUser].password, localStorage.getItem("vocabularyCoach_mainKey"))) {
+
+		data.userData[data.activeUser] = undefined;
+		localStorage.setItem("vocabularyCoach_userData", JSON.stringify(data.userData));
+		alert("Your account " + data.activeUser + " has been deleted.")
+		document.getElementById('deleteUser').classList.add('hidden');
+		logOut();
+
+	} else {
+		alert("Something went wrong.")
+	}
+
+}
+
+
+
+
+function logOut () {
+
+	data.activeUser = undefined;
+	document.getElementById("login").classList.remove("hidden");
+	document.getElementById("main").classList.add("hidden");
+	document.getElementById("unitDisplay").classList.add("hidden");
+	document.getElementById("practise").classList.add("hidden");
+	document.getElementById("accountSettings").classList.add("hidden");
+	document.getElementById("loginUsername").value = "";
+	document.getElementById("loginPassword").value = "";
+
+}
+
+
+
+
+function importUser () {
+
+	let temp = JSON.parse(document.getElementById("userImportText").value)
+	let tempPW = letterKey.decrypt(temp.password, localStorage.getItem("vocabularyCoach_mainKey"))
+	signUp(document.getElementById("userImportName").value, tempPW, tempPW);
+	data.userData[document.getElementById("userImportName").value].userKey = temp.userKey;
+	data.userData[document.getElementById("userImportName").value].statistics = temp.statistics;
+	data.userData[document.getElementById("userImportName").value].vocabUnits = temp.vocabUnits;
+	document.getElementById("userImport").classList.add("hidden");
+	reloadOverviewTable()
+
+}
