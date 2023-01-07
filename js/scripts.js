@@ -375,6 +375,7 @@ function nextTask () {
 	document.getElementById("practiseOutput").classList.remove("redDisplay");
 	document.getElementById("practisingConfirm").style = "background-color: green;";
 	document.getElementById("practisingConfirm").onclick = function() {practisingConfirm();};
+	document.getElementById("practisingProgress").innerHTML = "Progress: " + (data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList.length-data.practising.remaining.length) + " / " + data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList.length;
 
 }
 
@@ -439,6 +440,7 @@ function prepareResult () {
 
 	}
 
+	document.getElementById("practisingProgress").innerHTML = "Progress: " + (data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList.length-data.practising.remaining.length) + " / " + data.userData[data.activeUser].vocabUnits[data.activeUnit].vocabList.length;
 	percent = tr/data.practising.result.length;
 	percent *= 10000;
 	percent = Math.round(percent);
@@ -481,13 +483,20 @@ function prepareResult () {
 	data.userData[data.activeUser].statistics.tries++;
 
 	let temp = data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent + percent
-	data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent = temp/data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.tries;
+	data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent = temp
+	if (data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.tries>1) {
+		data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent = temp / 2;
+	}
 
 	let temp2 = data.userData[data.activeUser].statistics.percent + percent
-	data.userData[data.activeUser].statistics.percent = temp2 / data.userData[data.activeUser].statistics.tries
+	data.userData[data.activeUser].statistics.percent = temp2
+	if (data.userData[data.activeUser].statistics.tries>1) {
+		data.userData[data.activeUser].statistics.percent = temp2 / 2;
+	}
 
-	data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent
-
+	let temp3 = data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent*100
+	temp3 = Math.round(temp3);
+	data.userData[data.activeUser].vocabUnits[data.activeUnit].statistics.percent = temp3 / 100
 
 	localStorage.setItem("vocabularyCoach_userData", JSON.stringify(data.userData));
 
