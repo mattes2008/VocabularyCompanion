@@ -1,6 +1,7 @@
 let data = {
 
 	activeUser: undefined,
+	log: [],
 	practising: {
 
 		activeVoc: undefined,
@@ -8,9 +9,21 @@ let data = {
 		direction: "",
 		result: [],
 
-	}
+	},
+	activePluginElements: [],
 
 }
+
+
+document.addEventListener ("keyup", function (src) {
+
+	if (src.key==="Escape") {
+		document.getElementById("console").classList.toggle("hidden")
+		reloadConsole()
+		document.getElementById("consoleCommandLine").select()
+	}
+
+}, false)
 
 
 
@@ -36,12 +49,16 @@ function acceptLocalStorage () {
 	}
 	localStorage.setItem("vocabularyCoach_userData", JSON.stringify(data.userData));
 
+	if (localStorage.getItem("vocabularyCoach_remainSignedIn")===null) {
+		localStorage.setItem("vocabularyCoach_remainSignedIn", "empty")
+	}
+
 	if (localStorage.getItem("vocabularyCoach_mainKey")===null) {
 		localStorage.setItem("vocabularyCoach_mainKey", letterKey.createKey());
 	}
 	document.getElementById('startPractisingSrcToTar').checked = true;
 
-	if (localStorage.getItem("vocabularyCoach_remainSignedIn")!==null) {
+	if (localStorage.getItem("vocabularyCoach_remainSignedIn")!=="empty") {
 		signIn(JSON.parse(localStorage.getItem("vocabularyCoach_remainSignedIn")), letterKey.decrypt(data.userData[JSON.parse(localStorage.getItem("vocabularyCoach_remainSignedIn"))].password, localStorage.getItem("vocabularyCoach_mainKey")));
 	}
 
@@ -61,6 +78,14 @@ function signIn (username, password) {
 
 			if (document.getElementById("remainSignedIn").checked===true) {
 				localStorage.setItem("vocabularyCoach_remainSignedIn", JSON.stringify(username));
+			}
+
+			for (let i=0; i<data.userData[data.activeUser].plugins.length; i++) {
+
+				let temp = open.element.create("script", document.head);
+				temp.src = data.userData[data.activeUser].plugins[i];
+				data.activePluginElements.push(temp);
+
 			}
 
 		}
@@ -86,6 +111,7 @@ function signUp (username, password, repeated) {
 					perfectTries: 0,
 
 				},
+				plugins: [],
 
 			}
 
@@ -658,8 +684,15 @@ function logOut () {
 	document.getElementById("accountSettings").classList.add("hidden");
 	document.getElementById("loginUsername").value = "";
 	document.getElementById("loginPassword").value = "";
-	localStorage.setItem("vocabularyCoach_remainSignedIn", null);
+	localStorage.setItem("vocabularyCoach_remainSignedIn", "empty");
 	document.getElementById("remainSignedIn").checked = false;
+
+	for (let i=0; i<data.activePluginElements.length; i++) {
+
+		data.activePluginElements[i].remove();
+		data.activePluginElements.splice(i, 1);
+
+	}
 
 }
 
@@ -676,5 +709,36 @@ function importUser () {
 	data.userData[document.getElementById("userImportName").value].vocabUnits = temp.vocabUnits;
 	document.getElementById("userImport").classList.add("hidden");
 	reloadOverviewTable()
+
+}
+
+
+
+
+function reloadConsole () {
+
+	for (let i=0; i<9; i++) {
+
+		if (data.log[i]!==undefined) {
+			document.getElementById("logLine" + i).innerHTML = data.log[i]
+		}
+
+	}
+
+}
+
+
+function consoleSend (evt) {
+
+	if (evt.key==="Enter") {
+
+		let conTemp = document.getElementById("consoleCommandLine").value;
+		let conOut = eval(conTemp);
+
+		data.log.unshift(">> " + " " + conOut);
+		document.getElementById("consoleCommandLine").value = "";
+		reloadConsole();
+
+	}
 
 }

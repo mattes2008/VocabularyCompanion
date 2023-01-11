@@ -6,10 +6,13 @@
 	<script src="js/scripts.js"></script>
 	<script src="js/open.js"></script>
 	<script src="js/openUI.js"></script>
+	<script src="js/plugin.js"></script>
 	<script src="js/letterKey.js"></script>
 	<link rel="stylesheet" href="css/style.css">
 	<title>Vocabulary Companion</title>
 	<link rel="icon" href="storage/favicon.png">
+
+
 
 </head>
 
@@ -715,6 +718,22 @@
 		<button onclick="document.getElementById('deleteUser').classList.add('hidden');">Cancel</button>
 
 	</div>
+
+</div>
+
+<div id="console" class="hidden">
+
+	<div class="logLine" id="logLine8" style="bottom: 50em;"></div>
+	<div class="logLine" id="logLine7" style="bottom: 45em;"></div>
+	<div class="logLine" id="logLine6" style="bottom: 40em;"></div>
+	<div class="logLine" id="logLine5" style="bottom: 35em;"></div>
+	<div class="logLine" id="logLine4" style="bottom: 30em;"></div>
+	<div class="logLine" id="logLine3" style="bottom: 25em;"></div>
+	<div class="logLine" id="logLine2" style="bottom: 20em;"></div>
+	<div class="logLine" id="logLine1" style="bottom: 15em;"></div>
+	<div class="logLine" id="logLine0" style="bottom: 10em;"></div>
+
+	<input placeholder="Input" id="consoleCommandLine" style="color: black; background-color: white; position: fixed; bottom: 2em; left: 2%; width: 96%; padding-left: 1em;" onkeyup="consoleSend(event)">
 
 </div>
 
