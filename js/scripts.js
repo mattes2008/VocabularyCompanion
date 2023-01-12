@@ -742,3 +742,14 @@ function consoleSend (evt) {
 	}
 
 }
+
+
+
+
+function showSidebar () {
+
+	if (data.activeUser!==undefined) {
+		document.getElementById("sidebar").classList.remove("hidden");
+	}
+
+}

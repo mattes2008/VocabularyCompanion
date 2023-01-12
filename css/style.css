@@ -163,7 +163,7 @@ textarea {
 }
 
 
-#accountIconMain {
+.circleIcon {
 
 	 width: 75px;
 	 height: 75px;
@@ -184,7 +184,7 @@ textarea {
 
 #console {
 
-	width: 1665px;
+	width: 1680px;
 	height: 1000px;
 	bottom: 0;
   	left: 0;
@@ -210,4 +210,25 @@ textarea {
 	font-family: "Arial";
 	font-weight: bold;
 
+}
+
+
+#sidebar {
+
+	width: 365px;
+	height: 1000px;
+	background-color: #F9F9F9;
+	color: black;
+	position: fixed;
+	left: 1315px;
+	top: 0px;
+
+}
+
+
+.sidebarIndex {
+
+	border: thin solid #CCCCCC;
+	color: #CCCCCC;
+	text-align: center;
 }
