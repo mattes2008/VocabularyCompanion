@@ -1,3 +1,7 @@
+<div style="text-align: center">
+<img src="storage/readmeImage.png">
+</div>
+
 # VocabularyCompanion
 
 A program which helps you to practise your vocabulary. It's a simple program with many different helpful functions:
