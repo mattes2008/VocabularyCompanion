@@ -11,6 +11,12 @@ let data = {
 
 	},
 	activePluginElements: [],
+	plugins: {
+
+		plugins: [],
+		active: [],
+
+	}
 
 }
 
@@ -44,6 +50,7 @@ function acceptLocalStorage () {
 	document.getElementById("acceptLocalStorage").classList.add("hidden");
 	data.userData = JSON.parse(localStorage.getItem("vocabularyCoach_userData"));
 
+
 	if (data.userData===null) {
 		data.userData = {};
 	}
@@ -53,6 +60,15 @@ function acceptLocalStorage () {
 		localStorage.setItem("vocabularyCoach_remainSignedIn", "empty")
 	}
 
+	if (localStorage.getItem("vocabularyCoach_plugins")===null) {
+		localStorage.setItem("vocabularyCoach_plugins", JSON.stringify([]))
+		data.plugins.plugins = []
+	} else {
+		data.plugins.plugins = JSON.parse(localStorage.getItem("vocabularyCoach_plugins"))
+	}
+
+
+
 	if (localStorage.getItem("vocabularyCoach_mainKey")===null) {
 		localStorage.setItem("vocabularyCoach_mainKey", letterKey.createKey());
 	}
@@ -60,6 +76,14 @@ function acceptLocalStorage () {
 
 	if (localStorage.getItem("vocabularyCoach_remainSignedIn")!=="empty") {
 		signIn(JSON.parse(localStorage.getItem("vocabularyCoach_remainSignedIn")), letterKey.decrypt(data.userData[JSON.parse(localStorage.getItem("vocabularyCoach_remainSignedIn"))].password, localStorage.getItem("vocabularyCoach_mainKey")));
+	}
+
+	for (let i=0; i<data.plugins.plugins.length; i++) {
+
+		let tempLoad = open.element.create("script", document.head);
+		tempLoad.src = data.plugins.plugins[i];
+		data.plugins.active.push(tempLoad);
+
 	}
 
 }
@@ -78,14 +102,6 @@ function signIn (username, password) {
 
 			if (document.getElementById("remainSignedIn").checked===true) {
 				localStorage.setItem("vocabularyCoach_remainSignedIn", JSON.stringify(username));
-			}
-
-			for (let i=0; i<data.userData[data.activeUser].plugins.length; i++) {
-
-				let temp = open.element.create("script", document.head);
-				temp.src = data.userData[data.activeUser].plugins[i];
-				data.activePluginElements.push(temp);
-
 			}
 
 		}
@@ -111,7 +127,6 @@ function signUp (username, password, repeated) {
 					perfectTries: 0,
 
 				},
-				plugins: [],
 
 			}
 
@@ -687,13 +702,6 @@ function logOut () {
 	localStorage.setItem("vocabularyCoach_remainSignedIn", "empty");
 	document.getElementById("remainSignedIn").checked = false;
 
-	for (let i=0; i<data.activePluginElements.length; i++) {
-
-		data.activePluginElements[i].remove();
-		data.activePluginElements.splice(i, 1);
-
-	}
-
 }
 
 
@@ -749,7 +757,48 @@ function consoleSend (evt) {
 function showSidebar () {
 
 	if (data.activeUser!==undefined) {
-		document.getElementById("sidebar").classList.remove("hidden");
+		document.getElementById("sidebarLogOut").classList.remove("hidden")
+	} else {
+		document.getElementById("sidebarLogOut").classList.add("hidden")
+	}
+	document.getElementById("sidebar").classList.remove("hidden");
+
+}
+
+
+
+
+function reloadPluginTable () {
+
+	document.getElementById("pluginMenu").classList.remove("hidden");
+	document.getElementById("login").classList.add("hidden");
+	document.getElementById("main").classList.add("hidden");
+	document.getElementById("unitDisplay").classList.add("hidden");
+	document.getElementById("practise").classList.add("hidden");
+	document.getElementById("accountSettings").classList.add("hidden");
+	document.getElementById("pluginOverviewTable").innerHTML = "";
+	temp2 = new OverviewTablePlugin(data.plugins.plugins, "&nbsp;&nbsp;&nbsp;&nbsp;Plugins", document.getElementById("pluginOverviewTable"), function(src) {alert(src)})
+	let temp = open.element.create("div", temp2.table);
+	temp.style = "text-align: right; font-weight: bold; font-size: 30px;";
+	temp.innerHTML = "+&nbsp;&nbsp;";
+	temp.addEventListener("click", function(){document.getElementById('addPlugin').classList.remove('hidden'); document.getElementById('addPluginSrc').value = "";});
+
+
+}
+
+
+function closePluginMenu () {
+
+	if (data.activeUser!==undefined) {
+		document.getElementById("login").classList.add("hidden");
+		document.getElementById("main").classList.remove("hidden");
+		document.getElementById("unitDisplay").classList.add("hidden");
+		document.getElementById("practise").classList.add("hidden");
+		document.getElementById("accountSettings").classList.add("hidden");
+		document.getElementById("pluginMenu").classList.add("hidden");
+	} else {
+		logOut();
+		document.getElementById("pluginMenu").classList.add("hidden");
 	}
 
 }

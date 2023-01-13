@@ -744,12 +744,111 @@
 		<div style="color: green;" onclick="document.getElementById('sidebar').classList.add('hidden'); document.getElementById('console').classList.remove('hidden'); reloadConsole();" class="sidebarIndex">
 			<h2>&gt;_&nbsp;&nbsp;&nbsp;Console</h2>
 		</div>
+		<div style="color: blue;" onclick="document.getElementById('sidebar').classList.add('hidden'); reloadPluginTable();" class="sidebarIndex">
+			<h2>&rarr;]&nbsp;&nbsp;&nbsp;Plugins</h2>
+		</div>
 		<div style="color: red;" onclick="document.getElementById('sidebar').classList.add('hidden')" class="sidebarIndex">
 		<h2>&times;&nbsp;&nbsp;&nbsp;Back</h2>
 		</div>
-		<div style="margin-top: 50px; color: blue;" onclick="document.getElementById('sidebar').classList.add('hidden'); logOut();" class="sidebarIndex">
+		<div id="sidebarLogOut" style="margin-top: 50px; color: blue;" onclick="document.getElementById('sidebar').classList.add('hidden'); logOut();" class="sidebarIndex">
 			<h2>[&rarr;&nbsp;&nbsp;&nbsp;Log Out...</h2>
 		</div>
+	</div>
+
+</div>
+
+<div id="pluginMenu" class="hidden">
+
+	<br/>
+	<br/>
+
+	<div id="pluginOverviewTable"></div>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<button style="background-color: red;" onclick="document.getElementById('removePlugin').classList.remove('hidden'); document.getElementById('removePluginSrc').value = '';">Remove</button>
+
+	<br/>
+	<br/>
+
+	<button onclick="closePluginMenu()">Back</button>
+
+	<div id="addPlugin" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Add Plugin...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="addPluginSrc" placeholder="Src">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button style="background-color: green;" onclick="document.getElementById('addPlugin').classList.add('hidden'); plugin.add(document.getElementById('addPluginSrc').value); reloadPluginTable()">Add</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="document.getElementById('addPlugin').classList.add('hidden')" style="background-color: red;">Cancel</button>
+
+	</div>
+	<div id="removePlugin" class="popupWindow hidden">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<h1 style="text-decoration: underline;">Remove Plugin...</h1>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<input id="removePluginSrc" placeholder="Src">
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<button style="background-color: red;" onclick="document.getElementById('removePlugin').classList.add('hidden'); plugin.remove(document.getElementById('removePluginSrc').value); reloadPluginTable()">Remove</button>
+
+		<br/>
+		<br/>
+
+		<button onclick="document.getElementById('removePlugin').classList.add('hidden')" style="background-color: blue;">Cancel</button>
+
 	</div>
 
 </div>
