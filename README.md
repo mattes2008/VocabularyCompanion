@@ -19,4 +19,4 @@ A program which helps you to practise your vocabulary. It's a simple program wit
 There isn't a preview yet.
 
 Try it by downloading the latest version: 
-<a href="https://github.com/mattes2008/VocabularyCompanion/releases/tag/v.0.1-beta" target="blank">Download (Pre-Release)</a>
+<a href="https://github.com/mattes2008/VocabularyCompanion/releases/tag/InternalVersion">Download</a>
