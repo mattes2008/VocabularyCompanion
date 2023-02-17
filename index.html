@@ -8,7 +8,8 @@
 	<script src="js/openUI.js"></script>
 	<script src="js/plugin.js"></script>
 	<script src="js/letterKey.js"></script>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style_light.css">
+	<link rel="stylesheet" href="css/style.css" id="style_dark">
 	<title>Vocabulary Companion</title>
 	<link rel="icon" href="storage/favicon.png">
 
@@ -133,7 +134,7 @@
 
 	</div>
 
-	<img src="storage/vocabularyCompanionRendering.png">
+	<img id="title_image" src="storage/vocabularyCompanionRendering.png">
 
 	<br/>
 
@@ -315,7 +316,7 @@
 
 	<div class="statisticDisplay">
 
-		<h1 style="text-decoration: underline;">Unit statistics:</h1>
+		<h1 style="text-decoration: underline; color: white;">Unit statistics:</h1>
 
 		<br/>
 		<br/>
@@ -561,6 +562,15 @@
 	<br/>
 	<br/>
 
+	<select id="styleSelect" onchange="styleSettingsChange(this.value)">
+		<option value="dark">Dark</option>
+		<option value="light">Light</option>
+	</select>
+
+	<br/>
+	<br/>
+	<br/>
+
 	<button onclick="logOut()">Log out...</button>
 
 	<br/>
@@ -577,7 +587,7 @@
 
 	<div class="statisticDisplay">
 
-		<h1 style="text-decoration: underline;">User statistics:</h1>
+		<h1 style="text-decoration: underline; color: white;">User statistics:</h1>
 
 		<br/>
 		<br/>

@@ -99,6 +99,7 @@ function signIn (username, password) {
 			document.getElementById("login").classList.add("hidden");
 			document.getElementById("main").classList.remove("hidden");
 			reloadOverviewTable();
+			style.change(data.userData[data.activeUser].style);
 
 			if (document.getElementById("remainSignedIn").checked===true) {
 				localStorage.setItem("vocabularyCoach_remainSignedIn", JSON.stringify(username));
@@ -118,6 +119,7 @@ function signUp (username, password, repeated) {
 
 				userKey: letterKey.createKey(),
 				password: letterKey.encrypt(password, localStorage.getItem("vocabularyCoach_mainKey")),
+				style: "dark",
 				vocabUnits: [],
 				statistics: {
 
@@ -608,6 +610,7 @@ function openAccountSettings () {
 		document.getElementById("userStatisticPercentDisplay").innerHTML = "&oslash;&nbsp;Success Ratio:&nbsp;&nbsp;&nbsp;" + temp + "&percnt;";
 		document.getElementById("userStatisticTriesDisplay").innerHTML = "&star;&nbsp;Tries:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].statistics.tries;
 		document.getElementById("userStatisticPerfectTriesDisplay").innerHTML = "&starf;&nbsp;Perfect Tries:&nbsp;&nbsp;&nbsp;" + data.userData[data.activeUser].statistics.perfectTries;
+		document.getElementById("styleSelect").value = data.userData[data.activeUser].style;
 		document.getElementById("accountSettingsRenameUser").value = data.activeUser;
 
 	}
@@ -701,6 +704,7 @@ function logOut () {
 	document.getElementById("loginPassword").value = "";
 	localStorage.setItem("vocabularyCoach_remainSignedIn", "empty");
 	document.getElementById("remainSignedIn").checked = false;
+	style.change("dark");
 
 }
 
@@ -801,4 +805,39 @@ function closePluginMenu () {
 		document.getElementById("pluginMenu").classList.add("hidden");
 	}
 
+}
+
+
+
+
+let style = {
+
+	change: function(theme) {
+
+		if (theme==="dark") {
+			document.getElementById("style_dark").href = "css/style.css";
+			document.getElementById("title_image").src = "storage/vocabularyCompanionRendering.png";
+		} else if (theme==="light") {
+			document.getElementById("style_dark").href = "";
+			document.getElementById("title_image").src = "storage/readmeImage.png";
+		}
+
+	},
+	settingsChange: function(theme) {
+
+		if (data.activeUser!==undefined) {
+			style.change(theme);
+			data.userData[data.activeUser].style = theme;
+			localStorage.setItem("vocabularyCoach_userData", JSON.stringify(data.userData));
+		}
+
+	},
+
+}
+
+
+
+
+function styleSettingsChange (src) {
+	style.settingsChange(src);
 }
