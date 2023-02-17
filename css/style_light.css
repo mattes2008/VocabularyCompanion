@@ -1,0 +1,236 @@
+body {
+
+    background-color: white;
+    font-family: "Arial";
+    text-align: center;
+    color: black;
+    width: 1665px;
+
+}
+
+
+.popupWindow {
+
+	width: 1400px;
+	height: 700px;
+	position: fixed;
+	top: 100px;
+	left: 132.5px;
+	background-color: #CCCCCC;
+	opacity: 95%;
+
+}
+
+
+
+
+input, select, button {
+
+	width: 500px;
+	height: 30px;
+	background-color: white;
+	color: black;
+	border: thin solid #CCCCCC;
+	font-family: "Arial";
+	padding-left: 5px;
+
+}
+
+
+button {
+
+	background-color: blue;
+	color: white;
+
+}
+
+
+.hidden {
+
+	visibility: hidden;
+	display: none;
+
+}
+
+
+.overviewTable {
+
+	background-color: blue;
+	color: white;
+	text-align: left;
+	border: thin solid blue;
+	margin-left: 82.5px;
+	width: 1500px;
+
+}
+
+
+.overviewTableIndex {
+
+	background-color: white;
+	color: black;
+	text-align: left;
+	border: thin solid #CCCCCC;
+	padding-left: 1em;
+
+}
+
+
+td {
+
+	width: 750px;
+	border: thin solid black;
+	height: 50px;
+	background-color: #CCCCCC;
+	color: black;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+
+}
+
+
+.display {
+
+	width: 1200px;
+	height: 100px;
+	background-color: #333333;
+	border: thin solid #222222;
+	margin-left: 232.5px;
+	font-size: 40px;
+	padding-top: 50px;
+
+}
+
+
+.greenDisplay {
+
+	background-color: green;
+	border: thin solid black;
+	color: white;
+
+}
+
+
+.redDisplay {
+
+	background-color: red;
+	border: thin solid black;
+	color: white;
+
+}
+
+
+.statisticDisplay {
+
+	width: 1200px;
+	height: 540px;
+	background-color: #CCCCCC;
+	border: thin solid #BBBBBB;
+	margin-left: 232.5px;
+	padding-top: 50px;
+	padding-left: 80px;
+	text-align: left;
+	color: white;
+
+}
+
+
+header {
+
+	background-color: blue;
+	border: 5px solid blue;
+	text-align: left;
+	padding-left: 2em;
+	color: white;
+
+}
+
+
+a {
+
+	color: blue;
+
+}
+
+
+textarea {
+
+	background-color: #CCCCCC;
+	color: white;
+	font-family: "Arial";
+	width: 1199px;
+	height: 400px;
+
+}
+
+
+.circleIcon {
+
+	 width: 75px;
+	 height: 75px;
+	 border-radius: 75px;
+	 margin-right: 50px;
+
+}
+
+
+#practisingProgress {
+
+	margin-top: 100px;
+	background-color: #222222;
+	border: 20px solid #222222;
+
+}
+
+
+#console {
+
+	width: 1680px;
+	height: 1000px;
+	bottom: 0;
+  	left: 0;
+	position: fixed;
+	height: 1000px;
+	background-color: #CCCCCC;
+	opacity: 90%;
+
+}
+
+
+.logLine {
+
+	background-color: #CCCCCC;
+	color: white;
+	text-align: left;
+	position: fixed;
+	bottom: 10em;
+	left: 2%;
+	width: 96%;
+	height: 30px;
+	font-size: 16px;
+	font-family: "Arial";
+	font-weight: bold;
+
+}
+
+
+#sidebar {
+
+	width: 365px;
+	height: 1000px;
+	background-color: #F9F9F9;
+	color: black;
+	position: fixed;
+	left: 1315px;
+	top: 0px;
+
+}
+
+
+.sidebarIndex {
+
+	border: thin solid #CCCCCC;
+	color: #CCCCCC;
+	text-align: center;
+}

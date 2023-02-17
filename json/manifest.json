@@ -1,0 +1,20 @@
+{
+	"name":"Vocabulary Companion",
+	"description":"Vocabulary Companion",
+	"short_name":"Vocabulary Companion",
+	"icons":[
+		{
+			"sizes":"960x540",
+			"src":"./storage/vocabularyCompanionRendering.png"
+		},
+		{
+			"sizes":"538x538",
+			"src":"./storage/favicon.png"
+		}
+	],
+	"scope":"/tictactoe",
+	"start_url":"./index.html",
+	"display":"fullscreen",
+	"theme_color": "#444444",
+	"background_color":"#444444"
+}
