@@ -41,6 +41,7 @@ function bodyOnLoad () {
 	} else {
 		acceptLocalStorage();
 	}
+	data.clockInterval = setInterval(function() {reloadClock()}, 1000);
 
 }
 
@@ -113,6 +114,8 @@ function signIn (username, password) {
 
 function signUp (username, password, repeated) {
 
+	let ver = document.getElementById("sidebarVersionNumber").innerHTML.split(" ")[2];
+
 	if (data.userData[username]==undefined) {
 		if (password===repeated) {
 			data.userData[username] = {
@@ -120,6 +123,7 @@ function signUp (username, password, repeated) {
 				userKey: letterKey.createKey(),
 				password: letterKey.encrypt(password, localStorage.getItem("vocabularyCoach_mainKey")),
 				style: "dark",
+				version: ver,
 				vocabUnits: [],
 				statistics: {
 
@@ -817,9 +821,11 @@ let style = {
 		if (theme==="dark") {
 			document.getElementById("style_dark").href = "css/style.css";
 			document.getElementById("title_image").src = "storage/vocabularyCompanionRendering.png";
+			document.getElementById("accountIconMain").style.backgroundImage = "url('storage/menuIcon.png')";
 		} else if (theme==="light") {
 			document.getElementById("style_dark").href = "";
 			document.getElementById("title_image").src = "storage/readmeImage.png";
+			document.getElementById("accountIconMain").style.backgroundImage = "url('storage/menuIcon_white.png')";
 		}
 
 	},
@@ -840,4 +846,40 @@ let style = {
 
 function styleSettingsChange (src) {
 	style.settingsChange(src);
+}
+
+
+function reloadClock () {
+
+	let clockTime = new Date;
+	let hou = clockTime.getHours();
+	let min = clockTime.getMinutes();
+	let day = clockTime.getDay();
+	if (hou<10) {
+		hou = "0" + String(hou);
+	}
+	if (min<10) {
+		min = "0" + String(min);
+	}
+	document.getElementById("clock").innerHTML = hou + ":" + min;
+
+}
+
+
+let terminal = {
+
+	close: function() {
+
+		document.getElementById("console").classList.add("hidden");
+		return "console has been closed";
+
+	},
+	clear: function() {
+
+		data.log = [];
+		reloadConsole();
+		return "";
+
+	},
+
 }

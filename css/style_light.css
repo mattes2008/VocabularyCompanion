@@ -94,8 +94,8 @@ td {
 
 	width: 1200px;
 	height: 100px;
-	background-color: #333333;
-	border: thin solid #222222;
+	background-color: #CCCCCC;
+	border: thin solid #BBBBBB;
 	margin-left: 232.5px;
 	font-size: 40px;
 	padding-top: 50px;
@@ -171,6 +171,7 @@ textarea {
 	 height: 75px;
 	 border-radius: 75px;
 	 margin-right: 50px;
+	 border: 0px solid white;
 
 }
 
@@ -178,8 +179,8 @@ textarea {
 #practisingProgress {
 
 	margin-top: 100px;
-	background-color: #222222;
-	border: 20px solid #222222;
+	background-color: #CCCCCC;
+	border: 20px solid #CCCCCC;
 
 }
 
