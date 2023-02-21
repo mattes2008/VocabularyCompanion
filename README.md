@@ -18,5 +18,7 @@ A program which helps you to practise your vocabulary. It's a simple program wit
 
 There isn't a preview yet.
 
-Try it by downloading the latest version: 
+Try it: 
+<a href="https://htmlpreview.github.io/?https://github.com/mattes2008/VocabularyCompanion/blob/master/index.html">Online</a>
+ | 
 <a href="https://github.com/mattes2008/VocabularyCompanion/releases/tag/InternalVersion">Download</a>
