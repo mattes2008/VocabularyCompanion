@@ -16,7 +16,8 @@ let data = {
 		plugins: [],
 		active: [],
 
-	}
+	},
+	version: 1.0,
 
 }
 
@@ -114,8 +115,6 @@ function signIn (username, password) {
 
 function signUp (username, password, repeated) {
 
-	let ver = document.getElementById("sidebarVersionNumber").innerHTML.split(" ")[2];
-
 	if (data.userData[username]==undefined) {
 		if (password===repeated) {
 			data.userData[username] = {
@@ -123,7 +122,7 @@ function signUp (username, password, repeated) {
 				userKey: letterKey.createKey(),
 				password: letterKey.encrypt(password, localStorage.getItem("vocabularyCoach_mainKey")),
 				style: "dark",
-				version: ver,
+				version: data.version,
 				vocabUnits: [],
 				statistics: {
 
@@ -852,16 +851,31 @@ function styleSettingsChange (src) {
 function reloadClock () {
 
 	let clockTime = new Date;
-	let hou = clockTime.getHours();
-	let min = clockTime.getMinutes();
-	let day = clockTime.getDay();
-	if (hou<10) {
-		hou = "0" + String(hou);
+	const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+	let timeKeys = {
+
+		hou: clockTime.getHours(),
+		min: clockTime.getMinutes(),
+		day: clockTime.getDay(),
+		date: clockTime.getDate(),
+		mon: clockTime.getMonth(),
+		year: clockTime.getFullYear(),
+
+	};
+
+	timeKeys.day = weekDays[timeKeys.day];
+	timeKeys.mon = months[timeKeys.mon];
+
+	if (timeKeys.hou<10) {
+		timeKeys.hou = "0" + String(timeKeys.hou);
 	}
-	if (min<10) {
-		min = "0" + String(min);
+	if (timeKeys.min<10) {
+		timeKeys.min = "0" + String(timeKeys.min);
 	}
-	document.getElementById("clock").innerHTML = hou + ":" + min;
+	document.getElementById("clock").innerHTML = timeKeys.hou + ":" + timeKeys.min;
+	document.getElementById("sidebarDate").innerHTML = timeKeys.day + ", " + timeKeys.mon + " " + timeKeys.date + ", " + timeKeys.year;
 
 }
 
