@@ -12,8 +12,8 @@
 			"src":"./storage/favicon.png"
 		}
 	],
-	"scope":"/tictactoe",
-	"start_url":"./index.html",
+	"scope":"/VocabularyCompanion",
+	"start_url":"https://htmlpreview.github.io/?https://github.com/mattes2008/VocabularyCompanion/blob/master/preview/preview.html",
 	"display":"fullscreen",
 	"theme_color": "#444444",
 	"background_color":"#444444"
