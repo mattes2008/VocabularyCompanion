@@ -4,7 +4,7 @@
 
 # VocabularyCompanion
 
-A program which helps you to practise your vocabulary. It's a simple program with many different helpful functions:
+A program which helps you to practise your vocabulary. It's a simple program with many different helpful features:
 
 - create different users
 - create different units in every user
